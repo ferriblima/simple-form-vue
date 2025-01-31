@@ -1,11 +1,6 @@
 <template>
-  <!-- Standard HTML form with method and action -->
-  <form
-    ref="formRef"
-    method="POST"
-    action="https://example.com/submitData" 
-    @submit="onSubmit"
-  >
+  <!-- Standard HTML form -->
+  <form @submit.prevent="handleSubmit">
     <!-- USER NAME -->
     <div
       class="form-control"
@@ -69,21 +64,23 @@
             v-model="interest"
           />
         </div>
-    </div>
-    <div class="inline-checkbox">
-      <div class="label-container">
-        <label for="interest-tutorials">Tutorials</label>
       </div>
-      <div class="checkbox-container">
-        <input
+
+      <div class="inline-checkbox">
+        <div class="label-container">
+          <label for="interest-tutorials">Tutorials</label>
+        </div>
+        <div class="checkbox-container">
+          <input
             id="interest-tutorials"
             name="interest"
             type="checkbox"
             value="tutorials"
             v-model="interest"
           />
+        </div>
       </div>
-      </div>
+
       <div class="inline-checkbox">
         <div class="label-container">
           <label for="interest-nothing">Nothing</label>
@@ -152,7 +149,8 @@
 
     <!-- RATING -->
     <div class="form-control">
-      <!-- Pass a 'name' to the RatingControl so it gets included in form data -->
+      <h2>Rate Your Experience</h2>
+      <!-- The custom Rating Control component -->
       <rating-control
         name="rating"
         v-model="rating"
@@ -161,18 +159,18 @@
 
     <!-- CONFIRM (TERMS) -->
     <div class="form-control">
-        <div class="inline-checkbox">
-          <div class="label-container">
-            <label for="confirm-terms">Agree to terms of use?</label>
-          </div>
-          <div class="checkbox-container">
-            <input
-              type="checkbox"
-              id="confirm-terms"
-              name="confirm"
-              v-model="confirm"
-            />
-          </div>
+      <div class="inline-checkbox">
+        <div class="label-container">
+          <label for="confirm-terms">Agree to terms of use?</label>
+        </div>
+        <div class="checkbox-container">
+          <input
+            type="checkbox"
+            id="confirm-terms"
+            name="confirm"
+            v-model="confirm"
+          />
+        </div>
       </div>
     </div>
 
@@ -204,34 +202,32 @@ export default {
 
   methods: {
     /**
-     * Called by Vue when the user submits the form.
-     * If we do NOT call event.preventDefault(), 
-     * the form will be submitted the "classic" way.
+     * Handle the form submission event.
+     * We're using `@submit.prevent="handleSubmit"` in the template,
+     * so the default browser action won't occur automatically.
      */
-    onSubmit(event) {
-      // Validate or log the data here before letting the form submit
+    handleSubmit() {
+      // Validate the userName field
       this.validateUserName();
 
-      // If the userName is invalid, prevent submission
+      // If userName is invalid, we could show an alert or simply stop.
       if (this.userNameValidationState === 'invalid') {
         alert('Please provide a valid name before submitting!');
-        event.preventDefault();
         return;
       }
 
-      // You can log the data for debugging
+      // Collect all form data
       const formData = this.collectFormData();
       console.log('Form data =>', formData);
 
-      // If everything is valid, do NOT call event.preventDefault().
-      // The browser will submit the form to `action="..."` automatically.
+      // Example: If you have an API, you could call `this.sendToAPI(formData)`.
+      // For now, we just log it and optionally reset the form.
+      // this.resetForm();
     },
 
     /**
-     * Collects data from our reactive properties.
-     * Note: This is just for your reference or console.log usage;
-     * the actual submission is handled by the browser since 
-     * we haven't called event.preventDefault().
+     * Gathers all relevant data from our component state
+     * to be sent or logged.
      */
     collectFormData() {
       return {
@@ -246,19 +242,50 @@ export default {
     },
 
     /**
-     * A simple validation function for userName.
+     * Simple validation function for userName.
+     * You can add more advanced checks here if needed.
      */
     validateUserName() {
-      this.userNameValidationState = 
+      this.userNameValidationState =
         this.userName.trim() === '' ? 'invalid' : 'valid';
+    },
+
+    /**
+     * (Optional) Reset the form data after successful submission.
+     */
+    resetForm() {
+      this.userName = '';
+      this.userAge = null;
+      this.referrer = 'wom';
+      this.interest = [];
+      this.how = null;
+      this.confirm = false;
+      this.rating = null;
+      this.userNameValidationState = 'pending';
+    },
+
+    /**
+     * (Optional) Example: Send data to an API endpoint
+     */
+    async sendToAPI(formData) {
+      try {
+        const response = await fetch('https://api.example.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+        if (!response.ok) {
+          throw new Error(`API request failed: ${response.statusText}`);
+        }
+        const result = await response.json();
+        console.log('API response:', result);
+      } catch (error) {
+        console.error('Error sending data to API:', error);
+      }
     }
   }
 };
 </script>
 
-<style scoped>
-/* 
-  Scoped styles remain the same, or you can remove them
-  if you're using global styles from global.css
-*/
-</style>
