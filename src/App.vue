@@ -1,18 +1,20 @@
 <template>
-  <the-form></the-form>
+  <!-- Main entry component -->
+  <UserForm />
 </template>
 
 <script>
-import TheForm from './components/TheForm.vue';
+import UserForm from './views/UserForm.vue';
+// OR import UserForm from '@/views/UserForm.vue'; if using alias
 
 export default {
-  components: {
-    TheForm
-  }  
-}
+  name: 'App',
+  components: { UserForm }
+};
 </script>
 
 <style>
+/* Global styles could remain here or move to global CSS */
 * {
   box-sizing: border-box;
 }
@@ -23,6 +25,6 @@ html {
 
 body {
   margin: 0;
-  background-color: #292929;
+  background-color: #f0f0f0;
 }
 </style>

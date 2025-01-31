@@ -1,0 +1,129 @@
+form {
+    margin: 2rem auto;
+    max-width: 40rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    padding: 2rem;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.form-control {
+    margin: 1rem 0;
+}
+
+.form-control label {
+    font-weight: bold;
+    display: block;
+}
+
+.form-control.invalid input {
+    border-color: #ff6b6b;
+}
+
+.form-control.invalid label {
+    color: #ff6b6b;
+}
+
+.form-control.invalid p {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+}
+
+/* Ensures the checkbox and label are aligned vertically in the center */
+.inline-checkbox {
+    display: flex; /* Enables flexbox */
+    align-items: center; /* Centers items vertically */
+    justify-content: space-between; /* Moves the checkbox to the right */
+    width: 100%; /* Ensures the div takes full width */
+}
+
+input,
+select {
+    display: block;
+    width: 100%;
+    font: inherit;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 0.5rem;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #0076bb;
+}
+
+button {
+    font: inherit;
+    border: 1px solid #0076bb;
+    background-color: #0076bb;
+    color: white;
+    cursor: pointer;
+    padding: 0.75rem 2rem;
+    border-radius: 30px;
+}
+
+button:hover,
+button:active {
+    border-color: #002350;
+    background-color: #002350;
+}
+
+.form-actions {
+    margin-top: 1.5rem;
+    text-align: right;
+}
+
+/* Optional: Style for the rating label */
+.rating-label {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #0076bb;
+}
+
+/* Ensure headers have consistent spacing */
+.form-control h2 {
+    margin-bottom: 0.5rem;
+}
+
+.rating-control ul {
+    list-style: none;
+    display: flex;
+    justify-content: center; /* Center the stars horizontally */
+    padding: 0;
+    margin: 0.5rem 0;
+}
+
+.rating-control li {
+    margin: 0 0.5rem;
+}
+
+.rating-control button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+}
+
+.rating-control .star {
+    font-size: 2rem; /* Increase star size */
+    color: #ccc; /* Default star color */
+    transition: color 0.3s, transform 0.3s;
+}
+
+.rating-control li.active .star {
+    color: #ffcc00; /* Highlight color for active stars */
+}
+
+.rating-control li:hover .star {
+    transform: scale(1.2); /* Slightly enlarge on hover */
+}
+
+.rating-control button:focus .star {
+    outline: 2px solid #0076bb; /* Accessibility: focus outline */
+    outline-offset: 4px;
+}
