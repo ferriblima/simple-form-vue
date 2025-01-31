@@ -1,0 +1,18 @@
+{
+    "root": true, // Indicates that this is the root ESLint configuration file
+  
+    "env": {
+      "node": true // Specifies that the code runs in a Node.js environment
+    },
+  
+    "extends": [
+      "eslint:recommended", // Uses ESLint's recommended rule set
+      "plugin:vue/vue3-recommended" // Uses recommended rules for Vue 3
+    ],
+  
+    "rules": {
+      "no-console": "warn", // Warns when console.log is used (useful for production)
+      "no-debugger": "warn" // Warns when the debugger statement is used
+    }
+  }
+  
